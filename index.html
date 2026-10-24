@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full bg-[#161616] text-[#c9c7cc] antialiased">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Timerin - Aplikasi Floating Timer Overlay untuk menghitung cooldown battle spell musuh di Mobile Legends secara akurat, ringan, dan 100% anti-ban.">
+  <meta name="keywords" content="Timerin, Timer Mobile Legends, MLBB Cooldown Spell, Timer Overlay ML, Flicker Timer, Anti Ban MLBB">
+  <meta name="author" content="Timerin">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- Favicon menggunakan timerin.png -->
+  <link rel="icon" type="image/png" href="assets/images/timerin.png">
+  <link rel="apple-touch-icon" href="assets/images/timerin.png">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Timerin — Floating Cooldown Timer Mobile Legends">
+  <meta property="og:description" content="Kuasai setiap detik pertandingan. Hitung cooldown battle spell musuh secara presisi dengan overlay transparan legal dan anti-ban.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/images/timerin.png">
+
+  <title>Timerin — Floating Cooldown Timer Mobile Legends (MLBB)</title>
+
+  <!-- Google Fonts: Bebas Neue / Anton (Display Monument), Inter (Grotesk), IBM Plex Mono (Technical Voice) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ember-orange': '#ff6436',
+            onyx: '#161616',
+            graphite: '#3c3a3e',
+            stone: '#7b7a7c',
+            ash: '#a2a2a2',
+            'silver-mist': '#c9c7cc',
+            fog: '#f1f1f1',
+            paper: '#f8f8f8',
+            'pure-white': '#ffffff',
+          },
+          fontFamily: {
+            display: ['Bebas Neue', 'Anton', 'sans-serif'],
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            mono: ['"IBM Plex Mono"', 'ui-monospace', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* DESIGN.md Tokens - Brutalist Type Foundry at Dusk */
+    :root {
+      --color-ember-orange: #ff6436;
+      --color-onyx: #161616;
+      --color-graphite: #3c3a3e;
+      --color-stone: #7b7a7c;
+      --color-ash: #a2a2a2;
+      --color-silver-mist: #c9c7cc;
+      --color-fog: #f1f1f1;
+      --color-paper: #f8f8f8;
+      --color-pure-white: #ffffff;
+    }
+
+    body {
+      background-color: #161616;
+      color: #c9c7cc;
+      font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    }
+
+    /* Massive Monument Headline with Vertical Multi-Stop Gradient (Clean & Muted) */
+    .font-monument {
+      font-family: 'Bebas Neue', 'Anton', sans-serif;
+      line-height: 0.8;
+      letter-spacing: -0.015em;
+      text-transform: uppercase;
+      background: linear-gradient(180deg, #26262b 0%, #4a484e 25%, #7b7a7c 50%, #b0adb2 80%, #dedbde 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Ambient Spotlight Background Vignette */
+    .hero-vignette {
+      background: radial-gradient(circle at 50% 35%, rgba(55, 53, 58, 0.35) 0%, rgba(22, 22, 22, 0.95) 70%, #161616 100%);
+    }
+
+    /* Primary Ember Download Button in Nav */
+    .pill-download-btn {
+      border: 1px solid rgba(255, 100, 54, 0.7);
+      background-color: rgba(255, 100, 54, 0.1);
+      border-radius: 9999px;
+      padding: 7px 18px;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #ffffff;
+      transition: all 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .pill-download-btn:hover {
+      border-color: #ff6436;
+      background-color: #ff6436;
+      color: #161616;
+      transform: translateY(-1px);
+      box-shadow: 0 0 16px rgba(255, 100, 54, 0.4);
+    }
+
+    /* Ember Status Dot */
+    .ember-dot {
+      width: 7px;
+      height: 7px;
+      background-color: #ff6436;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(255, 100, 54, 0.8);
+    }
+
+    /* Brutalist Pill Tag Badge (Sharp corners, IBM Plex Mono) */
+    .brutalist-tag {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      padding: 4px 8px;
+      border-radius: 0px;
+      background-color: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e5e5e5;
+      letter-spacing: 0.04em;
+    }
+
+    /* Smartphone Frame Styles & Smooth Orientation Transitions */
+    .phone-mockup-transition {
+      transition: max-width 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+                  aspect-ratio 0.4s cubic-bezier(0.32, 0.72, 0, 1),
+                  transform 0.3s ease;
+    }
+
+    .screenshot-fade {
+      transition: opacity 0.25s cubic-bezier(0.32, 0.72, 0, 1), transform 0.25s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#ff6436] selection:text-[#161616] hero-vignette">
+
+  <!-- 1. STICKY TOP NAVIGATION BAR (Fixed on scroll, clean branding & single download CTA) -->
+  <header class="w-full sticky top-0 z-50 bg-[#161616]/95 backdrop-blur-md border-b border-[#26262b] px-6 md:px-12 py-3.5 flex items-center justify-between">
+    
+    <!-- Left: Brand Icon (timerin.png) & Name -->
+    <a href="#" class="flex items-center gap-3 group" title="Timerin Home">
+      <img src="assets/images/timerin.png" alt="Timerin App Icon" class="w-8 h-8 rounded-full border border-[#3c3a3e] object-cover group-hover:border-[#ff6436] transition-colors" />
+      <div class="flex items-center gap-2">
+        <span class="font-mono text-sm uppercase tracking-widest text-white font-bold group-hover:text-[#ff6436] transition-colors">
+          TIMERIN
+        </span>
+      </div>
+    </a>
+
+    <!-- Right: Single Primary Download APK Pill Button -->
+    <div class="flex items-center gap-3">
+      <a href="assets/downloads/Timerin_v1.0.0.apk" download class="pill-download-btn inline-flex items-center gap-2">
+        <span class="ember-dot"></span>
+        <span>UNDUH APK</span>
+      </a>
+    </div>
+
+  </header>
+
+  <!-- 2. MAIN LANDING STAGE -->
+  <main class="w-full max-w-[1360px] mx-auto px-4 sm:px-8 pt-6 pb-12 flex-1 flex flex-col justify-between">
+
+    <!-- A. MASSIVE MONUMENT HEADLINE (Properly spaced so it never collides with UI elements) -->
+    <div class="w-full text-center select-none pt-2 pb-6 md:pb-8 pointer-events-none">
+      <h1 class="font-monument text-[14vw] sm:text-[12vw] lg:text-[145px] leading-[0.78] tracking-[-0.02em]">
+        TRACK EVERY<br>
+        COOLDOWN
+      </h1>
+    </div>
+
+    <!-- B. BALANCED 3-COLUMN HERO GRID (Left: Tech Metadata, Center: Phone Mockup, Right: Value Statement) -->
+    <div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto">
+
+      <!-- LEFT COLUMN: Technical Metadata & Trust Badges (lg: 3 cols) -->
+      <div class="lg:col-span-3 order-2 lg:order-1 flex flex-col gap-4">
+        
+        <!-- System Metadata Card -->
+        <div class="bg-[#1a1a20]/90 border border-[#2d2d35] rounded-xl p-4 sm:p-5 shadow-lg backdrop-blur-sm">
+          <h2 class="flex items-center gap-2 text-white font-mono text-xs font-semibold uppercase tracking-wider mb-2">
+            <span class="ember-dot"></span>
+            <span>TIMERIN V1.0.0 APK</span>
+          </h2>
+          <div class="font-mono text-[12px] text-[#a2a2a2] uppercase leading-relaxed mb-3">
+            <div>PLATFORM: ANDROID 8.0+</div>
+            <div>UKURAN: 54 MB</div>
+            <div class="text-[#7b7a7c]">TYPE: FLOATING OVERLAY</div>
+          </div>
+          <div class="pt-3 border-t border-[#2d2d35] flex flex-wrap gap-1.5">
+            <span class="brutalist-tag">[ 100% ANTI-BAN ]</span>
+            <span class="brutalist-tag">[ &lt;30MB RAM ]</span>
+            <span class="brutalist-tag">[ TANPA ROOT ]</span>
+            <span class="brutalist-tag">[ NON-INJECT ]</span>
+          </div>
+        </div>
+
+        <!-- Trust Note -->
+        <p class="font-mono text-[11px] text-[#7b7a7c] uppercase leading-relaxed px-1">
+          Aplikasi pihak ketiga legal. Menggunakan izin standar "Draw over other apps" tanpa membaca memori game.
+        </p>
+
+      </div>
+
+      <!-- CENTER COLUMN: Interactive Smartphone Showcase & Tabs (lg: 6 cols) -->
+      <div class="lg:col-span-6 order-1 lg:order-2 flex flex-col items-center">
+        
+        <!-- 4 Switcher Tabs Pill Bar (Clean, solid background, zero text collision) -->
+        <div class="mb-4 p-1 bg-[#1a1a20] border border-[#34343d] rounded-full shadow-md flex items-center gap-1" role="tablist" aria-label="Pilihan Screenshot">
+          <button onclick="focusScreenshot(0)" id="pill-tab-0" class="px-3 sm:px-3.5 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider text-[#ff6436] bg-white/10 font-semibold transition-all">
+            1. LOGIN
+          </button>
+          <button onclick="focusScreenshot(1)" id="pill-tab-1" class="px-3 sm:px-3.5 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider text-[#a2a2a2] hover:text-white transition-all">
+            2. BERANDA
+          </button>
+          <button onclick="focusScreenshot(2)" id="pill-tab-2" class="px-3 sm:px-3.5 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider text-[#a2a2a2] hover:text-white transition-all">
+            3. IN-GAME
+          </button>
+          <button onclick="focusScreenshot(3)" id="pill-tab-3" class="px-3 sm:px-3.5 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider text-[#a2a2a2] hover:text-white transition-all">
+            4. TEAMFIGHT
+          </button>
+        </div>
+
+        <!-- Realistic Smartphone Mockup Frame (Dynamically adapts between landscape & portrait) -->
+        <div id="phone-container" class="phone-mockup-transition relative w-full max-w-[270px] aspect-[9/19.5] group">
+          
+          <!-- Outer Phone Chassis (Dark titanium finish + rounded bezel) -->
+          <div class="relative w-full h-full bg-[#1c1c22] rounded-[32px] sm:rounded-[38px] p-2 sm:p-2.5 border-2 border-[#383842] shadow-[0_20px_50px_-10px_rgba(0,0,0,0.95)] flex flex-col justify-center">
+            
+            <!-- Inner Screen Panel -->
+            <div class="relative w-full h-full rounded-[24px] sm:rounded-[30px] overflow-hidden bg-[#0d0d10] border border-[#26262b] flex items-center justify-center">
+              
+              <!-- Screen Image Display -->
+              <img id="phone-screen-img"
+                   src="assets/images/login.jpg" 
+                   alt="Tampilan Fitur Timerin" 
+                   class="w-full h-full object-cover screenshot-fade opacity-100" />
+
+              <!-- Left Arrow Button -->
+              <button onclick="prevScreenshot()" aria-label="Sebelumnya" class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 z-10">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+                </svg>
+              </button>
+
+              <!-- Right Arrow Button -->
+              <button onclick="nextScreenshot()" aria-label="Berikutnya" class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/20 backdrop-blur-sm flex items-center justify-center transition-all hover:scale-105 z-10">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+                </svg>
+              </button>
+
+              <!-- In-Screen Floating Caption Pill -->
+              <div class="absolute bottom-2.5 left-3 right-3 bg-black/85 backdrop-blur-md border border-white/10 px-3 py-1.5 rounded-[6px] flex items-center justify-between z-10">
+                <div class="flex items-center gap-2 overflow-hidden">
+                  <span class="ember-dot flex-shrink-0"></span>
+                  <span id="screen-title" class="font-mono text-[11px] sm:text-xs uppercase font-semibold text-white truncate">
+                    1. MASUK & AKUN TIMERIN
+                  </span>
+                </div>
+                <span id="screen-counter" class="font-mono text-[10px] sm:text-[11px] text-[#7b7a7c] flex-shrink-0 ml-2">
+                  01 / 04
+                </span>
+              </div>
+
+              <!-- Camera Notch -->
+              <div id="phone-camera-notch" class="absolute top-3.5 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-black border border-white/10 flex items-center justify-center z-20 pointer-events-none">
+                <div class="w-1.5 h-1.5 rounded-full bg-[#161616]"></div>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Description Below Phone -->
+        <p id="screen-desc" class="font-mono text-xs text-[#a2a2a2] text-center mt-3 uppercase tracking-wider max-w-md">
+          Login cepat dan aman tanpa integrasi berbahaya ke akun game
+        </p>
+
+      </div>
+
+      <!-- RIGHT COLUMN: Editorial Value Statement & Key Features (lg: 3 cols) -->
+      <div class="lg:col-span-3 order-3 flex flex-col gap-4">
+        
+        <!-- Editorial Statement Card -->
+        <div class="bg-[#1a1a20]/90 border border-[#2d2d35] rounded-xl p-4 sm:p-5 shadow-lg backdrop-blur-sm">
+          <h2 class="font-mono text-[11px] text-[#ff6436] uppercase tracking-wider font-semibold mb-2">
+            PRESISI DETIK &bull; 100% AMAN
+          </h2>
+          <p class="font-sans text-[13px] text-[#c9c7cc] leading-relaxed mb-4">
+            Floating timer overlay cerdas untuk pemain Mobile Legends. Melacak waktu cooldown battle spell musuh (Flicker, Purify, Retri) secara instan tanpa menutup kontrol hero.
+          </p>
+          <div class="pt-3 border-t border-[#2d2d35] space-y-2">
+            <div class="font-mono text-[11px] text-[#a2a2a2] flex items-center gap-2">
+              <span class="text-[#ff6436]">✓</span> DRAG & DROP POSISI BEBAS
+            </div>
+            <div class="font-mono text-[11px] text-[#a2a2a2] flex items-center gap-2">
+              <span class="text-[#ff6436]">✓</span> PENGATURAN TRANSPARANSI
+            </div>
+            <div class="font-mono text-[11px] text-[#a2a2a2] flex items-center gap-2">
+              <span class="text-[#ff6436]">✓</span> HITUNG MUNDUR AUDIO & GETAR
+            </div>
+            <div class="font-mono text-[11px] text-[#a2a2a2] flex items-center gap-2">
+              <span class="text-[#ff6436]">✓</span> BEBAS LAG & HEMAT BATERAI
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Direct Download Reminder Card -->
+        <div class="p-3 bg-white/[0.03] border border-white/10 rounded-lg flex items-center justify-between font-mono text-[11px] text-[#a2a2a2]">
+          <span>SIAP DIGUNAKAN</span>
+          <a href="assets/downloads/Timerin_v1.0.0.apk" download class="text-[#ff6436] hover:underline font-semibold">
+            UNDUH APK &rarr;
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- 3. MINIMALIST FOOTER -->
+  <footer class="w-full py-4 px-6 md:px-12 border-t border-[#26262b] flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-[11px] text-[#7b7a7c]">
+    <div class="flex items-center gap-2">
+      <img src="assets/images/timerin.png" alt="Timerin" class="w-4 h-4 rounded-full opacity-60" />
+      <span>© 2026 TIMERIN — FLOATING COOLDOWN OVERLAY</span>
+    </div>
+    <div>TIDAK TERAFILIASI DENGAN MOONTON &bull; 100% UTILITY OVERLAY</div>
+  </footer>
+
+  <!-- 4. JAVASCRIPT FOR SMARTPHONE SCREENSHOT SWITCHER & ORIENTATION ADAPTATION -->
+  <script>
+    const screenshots = [
+      {
+        id: 1,
+        src: 'assets/images/login.jpg',
+        orientation: 'portrait',
+        title: '1. MASUK & AKUN TIMERIN',
+        desc: 'Login cepat dan aman tanpa integrasi berbahaya ke akun game',
+        counter: '01 / 04',
+        alt: 'Halaman Login Timerin'
+      },
+      {
+        id: 2,
+        src: 'assets/images/beranda.jpg',
+        orientation: 'portrait',
+        title: '2. BERANDA APLIKASI TIMERIN',
+        desc: 'Pengaturan transparansi, kunci posisi, dan aktivasi floating widget',
+        counter: '02 / 04',
+        alt: 'Beranda Aplikasi Timerin'
+      },
+      {
+        id: 3,
+        src: 'assets/images/ml1.jpg',
+        orientation: 'landscape',
+        title: '3. IN-GAME OVERLAY (MLBB)',
+        desc: 'Timer cooldown melayang di atas arena Mobile Legends secara real-time',
+        counter: '03 / 04',
+        alt: 'In-Game Overlay MLBB Timerin'
+      },
+      {
+        id: 4,
+        src: 'assets/images/ml2.jpg',
+        orientation: 'landscape',
+        title: '4. TRACKING COOLDOWN TEAMFIGHT',
+        desc: 'Ketahui detik pasti Flicker dan Spell musuh saat war berlangsung',
+        counter: '04 / 04',
+        alt: 'Teamfight Cooldown Tracking'
+      }
+    ];
+
+    let currentIndex = 0;
+    const phoneContainer = document.getElementById('phone-container');
+    const phoneCameraNotch = document.getElementById('phone-camera-notch');
+    const imgEl = document.getElementById('phone-screen-img');
+    const titleEl = document.getElementById('screen-title');
+    const descEl = document.getElementById('screen-desc');
+    const counterEl = document.getElementById('screen-counter');
+
+    function updatePhoneView() {
+      const item = screenshots[currentIndex];
+      
+      // Smooth fade transition
+      imgEl.style.opacity = '0.2';
+      imgEl.style.transform = 'scale(0.98)';
+      
+      setTimeout(() => {
+        imgEl.src = item.src;
+        imgEl.alt = item.alt;
+        titleEl.textContent = item.title;
+        descEl.textContent = item.desc;
+        counterEl.textContent = item.counter;
+
+        // Adapt smartphone frame to landscape or portrait mode
+        if (item.orientation === 'landscape') {
+          // Landscape smartphone mode (MLBB in-game)
+          phoneContainer.className = 'phone-mockup-transition relative w-full max-w-[620px] aspect-[19.5/9] group';
+          // Notch on left edge
+          phoneCameraNotch.className = 'absolute left-3.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-black border border-white/10 flex items-center justify-center z-20 pointer-events-none';
+        } else {
+          // Portrait smartphone mode (Timerin App Beranda / Login)
+          phoneContainer.className = 'phone-mockup-transition relative w-full max-w-[270px] aspect-[9/19.5] group';
+          // Notch on top center
+          phoneCameraNotch.className = 'absolute top-3.5 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-black border border-white/10 flex items-center justify-center z-20 pointer-events-none';
+        }
+
+        imgEl.style.opacity = '1';
+        imgEl.style.transform = 'scale(1)';
+      }, 150);
+
+      // Update switcher tabs styling
+      for (let i = 0; i < screenshots.length; i++) {
+        const btn = document.getElementById(`pill-tab-${i}`);
+        if (i === currentIndex) {
+          btn.className = 'px-3 sm:px-3.5 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider text-[#ff6436] bg-white/10 font-semibold transition-all';
+          btn.setAttribute('aria-selected', 'true');
+        } else {
+          btn.className = 'px-3 sm:px-3.5 py-1.5 rounded-full font-mono text-[11px] uppercase tracking-wider text-[#a2a2a2] hover:text-white transition-all';
+          btn.setAttribute('aria-selected', 'false');
+        }
+      }
+    }
+
+    function focusScreenshot(index) {
+      if (index >= 0 && index < screenshots.length) {
+        currentIndex = index;
+        updatePhoneView();
+      }
+    }
+
+    function prevScreenshot() {
+      currentIndex = (currentIndex - 1 + screenshots.length) % screenshots.length;
+      updatePhoneView();
+    }
+
+    function nextScreenshot() {
+      currentIndex = (currentIndex + 1) % screenshots.length;
+      updatePhoneView();
+    }
+
+    // Keyboard navigation (ArrowLeft & ArrowRight)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') prevScreenshot();
+      if (e.key === 'ArrowRight') nextScreenshot();
+    });
+  </script>
+</body>
+</html>
