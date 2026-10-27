@@ -29,7 +29,7 @@
 - **Demografi:** Usia 21 tahun, Mahasiswa, sangat fasih teknologi smartphone Android, pemain MLBB tier Mythical Glory/Immortal.
 - **Tujuan:** Mengetahui detik pasti kapan battle spell lawan (Flicker, Purify, Retribution) kembali aktif untuk memimpin inisiasi _team fight_.
 - **Kendala/Masalah:** Menghitung waktu cooldown spell (misal Flicker 120 detik) secara manual di kepala sangat membebani fokus saat team fight yang intens.
-- **Perjalanan Pengguna:** Membuka web dari browser HP atau link discord, melihat screenshot tampilan overlay di dalam game, membaca jaminan anti-ban, menekan tombol unduh APK, lalu menginstal dan langsung menggunakannya.
+- **Perjalanan Pengguna:** Membuka web dari browser HP atau link discord, melihat screenshot tampilan overlay di dalam game, membaca jaminan anti-ban, menekan tombol UNDUH APK, lalu menginstal dan langsung menggunakannya.
 
 ### Persona 2: Fajar "The Solo Ranker" (Pemain Kasual / Jungler)
 
@@ -167,7 +167,7 @@
 
 ### Analisis Kompetitor
 
-- **Penghitung Waktu Manual / Stopwatch:** Membutuhkan perangkat kedua atau mengganggu layar game secara fisik. Timerin unggul karena mengapung (_floating overlay_) transparan langsung di atas Mobile Legends.
+- **Penghitung Waktu Manual / Stopwatch:** Membutuhkan perangkat kedua atau mengganggu layar game secara fisik. Timerin unggul karena mengapung (_TIMER OVERLAY_) transparan langsung di atas Mobile Legends.
 - **Cheat / Script Injector:** Berisiko tinggi banned permanen dari Moonton. Timerin unggul mutlak karena **100% legal** dan beroperasi murni sebagai timer visual independen tanpa membaca memori game.
 
 ### Wawasan Percakapan AI
@@ -178,5 +178,5 @@
 ### Glosarium
 
 - **Battle Spell:** Kemampuan tambahan hero di Mobile Legends dengan waktu tunggu tertentu (cth: Flicker 120s, Purify 90s, Retribution 35s).
-- **Floating Overlay:** Jendela mini mengambang di atas aplikasi lain yang difasilitasi oleh izin sistem Android (_Draw over other apps_).
+- **TIMER OVERLAY:** Jendela mini mengambang di atas aplikasi lain yang difasilitasi oleh izin sistem Android (_Draw over other apps_).
 - **CSP (Content Security Policy):** Kebijakan keamanan web untuk membatasi eksekusi sumber daya berbahaya.
