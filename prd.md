@@ -47,7 +47,7 @@
 | **Header Floating Navigation**                | Navigasi model _frosted pill_ melayang di bagian atas layar sesuai `DESIGN.md`.                       | Sebagai pengguna, saya ingin navigasi yang ringkas agar tampilan tetap bersih dan fokus.           | Must      | Menggunakan radius pill (50px), backdrop-blur, border halus `#dee2de`, memuat logo Timerin dan status versi v1.0.                        | Tailwind CSS, Lucide/Inline Icons  |
 | **Hero & Value Proposition (Single Section)** | Bagian utama yang menyampaikan nilai jual Timerin dalam satu layar pandang.                           | Sebagai pengunjung, saya ingin langsung memahami fungsi Timerin tanpa harus banyak scroll.         | Must      | Menampilkan headline tegas dengan font display serif (`Fraunces`), subheadline deskriptif, dan chip fitur unggulan.                      | Typography & Theme Token           |
 | **Showcase 4 Gambar Aplikasi**                | Komponen interaktif untuk menampilkan 4 screenshot fitur Timerin.                                     | Sebagai calon pengguna, saya ingin melihat rupa antarmuka overlay aplikasi sebelum mengunduhnya.   | Must      | Menampilkan 4 screenshot aplikasi dengan tombol navigasi/thumbnail switcher yang halus, responsif di mobile & desktop.                   | File gambar di `assets/images/`    |
-| **Direct APK Download CTA**                   | Tombol unduh berbingkai (_outlined CTA_) yang langsung mengunduh file APK lokal.                      | Sebagai pengguna, saya ingin langsung mengunduh file `.apk` dengan sekali klik.                    | Must      | Tombol berbingkai `#41a1cf`, transparan, border-radius 8px, mengarah ke `assets/downloads/Timerin_v1.0.0.apk` dengan atribut `download`. | File `.apk` di `assets/downloads/` |
+| **Direct APK Download CTA**                   | Tombol unduh berbingkai (_outlined CTA_) yang langsung mengunduh file APK lokal.                      | Sebagai pengguna, saya ingin langsung mengunduh file `.apk` dengan sekali klik.                    | Must      | Tombol berbingkai `#41a1cf`, transparan, border-radius 8px, mengarah ke `assets/downloads/Timerin_v1.0.1.apk` dengan atribut `download`. | File `.apk` di `assets/downloads/` |
 | **Trust Badges (Anti-Ban & Keamanan)**        | Indikator kepercayaan bahwa Timerin 100% aman (overlay murni, tanpa root, tanpa modifikasi APK game). | Sebagai pemain MLBB, saya ingin memastikan akun game saya tidak akan terbanned.                    | Should    | Memuat 3 poin kepercayaan: _Overlay Murni (No-Injection)_, _Tanpa Akses Root_, _Ringan & Ramah Baterai_.                                 | SVG Icons & Typography             |
 | **Vercel Security Headers**                   | Konfigurasi perlindungan keamanan web di tingkat server hosting Vercel.                               | Sebagai pemilik website, saya ingin landing page terlindungi dari clickjacking, XSS, dan sniffing. | Must      | File `vercel.json` menerapkan CSP, HSTS, X-Frame-Options DENY, X-Content-Type-Options nosniff, Referrer-Policy.                          | Platform Vercel                    |
 
@@ -60,7 +60,7 @@
 1. Pengguna membuka URL website Timerin.
 2. Pengguna membaca headline, deskripsi, dan memeriksa badge keamanan anti-ban.
 3. Pengguna mengklik tombol _"Download Timerin (v1.0 APK)"_.
-4. Browser memicu dialog penyimpanan file `Timerin_v1.0.0.apk` secara instan.
+4. Browser memicu dialog penyimpanan file `Timerin_v1.0.1.apk` secara instan.
 
 - **Jalur alternatif:** Pengguna ingin melihat detail tampilan aplikasi terlebih dahulu sebelum mengklik tombol unduh.
 - **Kondisi error:** Jika file APK belum terunggah/hilang di server, muncul peringatan unduhan belum tersedia secara elegan.
@@ -144,7 +144,7 @@
 
 - Rilis single section landing page Timerin.
 - Galeri 4 screenshot interaktif dengan switcher thumbnail/dots.
-- Tombol direct download `assets/downloads/Timerin_v1.0.0.apk`.
+- Tombol direct download `assets/downloads/Timerin_v1.0.1.apk`.
 - Implementasi sistem desain `DESIGN.md` dan `vercel.json` security headers.
 
 ### Rilis Mendatang

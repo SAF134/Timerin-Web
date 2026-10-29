@@ -12,7 +12,7 @@ Dibangun menggunakan **HTML5 semantik + Tailwind CSS**, mengikuti aturan sistem 
 Timerin-Web/
 ├── assets/
 │   ├── downloads/
-│   │   └── Timerin_v1.0.0.apk    # File instalasi aplikasi Android Timerin (~54 MB)
+│   │   └── Timerin_v1.0.1.apk    # File instalasi aplikasi Android Timerin (~53 MB)
 │   └── images/
 │       ├── timerin.png           # Icon & logo resmi aplikasi Timerin
 │       ├── login.jpg             # Screenshot 1: Tampilan login aplikasi Timerin (Portrait)
@@ -34,7 +34,7 @@ Timerin-Web/
 
 1. **Hero Section (Rata Tengah):**
    - Monument Headline: `SMART SPELL COOLDOWN OVERLAY`.
-   - Sub-headline deskriptif, tombol utama UNDUH APK (54 MB), dan baris badge legalitas anti-ban.
+   - Sub-headline deskriptif, tombol utama UNDUH APK (53 MB), dan baris badge legalitas anti-ban.
 2. **Bagian 01: Antarmuka Aplikasi (Mode Portrait):**
    - Menampilkan 2 frame smartphone vertikal berdampingan secara simetris:
      - `1. MASUK & AKUN` (`login.jpg`)
@@ -56,7 +56,7 @@ Timerin-Web/
 File APK aplikasi Timerin berada di:
 
 ```text
-assets/downloads/Timerin_v1.0.0.apk
+assets/downloads/Timerin_v1.0.1.apk
 ```
 
 Tombol _"UNDUH APK"_ di navigasi atas dan banner utama langsung memicu pengunduhan file ini secara instan dan aman dengan header `Content-Disposition: attachment`.
